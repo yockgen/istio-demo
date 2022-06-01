@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-nginx-svc
+  labels:
+    app: demo-nginx-svc
+    service: demo-nginx-svc
+spec:
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: demo-nginx
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-v1-conf
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <body>
+    <p color="#FF0000">V1: This is Istio Demo!</p>
+    </body>
+    </html>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-nginx-v1
+  labels:
+    app: demo-nginx
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      app: demo-nginx
+      version: v1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo-nginx
+        version: v1
+    spec:
+      containers:
+      - name: multus-nginx
+        image: ghcr.io/redhat-nfvpe/multus-service-demo:fedora-nginx
+        ports:
+        - containerPort: 80
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: nginx-v1-conf
+      volumes:
+        - name: nginx-v1-conf
+          configMap:
+            name: nginx-v1-conf
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-v2-conf
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <body>
+    <p color="#FF0000">V2: This is Istio Demo!</p>
+    </body>
+    </html>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-nginx-v2
+  labels:
+    app: demo-nginx
+    version: v2
+spec:
+  selector:
+    matchLabels:
+      app: demo-nginx
+      version: v2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo-nginx
+        version: v2
+    spec:
+      containers:
+      - name: multus-nginx
+        image: ghcr.io/redhat-nfvpe/multus-service-demo:fedora-nginx
+        ports:
+        - containerPort: 80
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: nginx-v2-conf
+      volumes:
+        - name: nginx-v2-conf
+          configMap:
+            name: nginx-v2-conf
