@@ -21,7 +21,7 @@ istioctl analyze
 - kubectl get svc | grep demo-nginx-svc
 - curl -s "http://{{cluster ip address}}:9080" 
   - e.g. curl -s "http://10.233.46.10:9080"  
-- Calling the curl multiple times, user should noticed that the v1 and v2 application text shown alternatively.
+- Calling the curl multiple times, user should noticed that the v1 and v2 application text shown randomly.
 
 
 4.2 Access App v1 or v2 in round-robin manner outside k8s cluster via Istio Ingress Gateway
@@ -32,7 +32,7 @@ istioctl analyze
   - Getting Ingress Port  
 -  curl -s "http://{{Ingress Host IP}}:{{Ingress Port}}/"   
    - e.g. curl -s "http://192.168.222.145:31087/"       
-- Calling the curl multiple times, user should noticed that the v1 and v2 application text shown alternatively.
+- Calling the curl multiple times, user should noticed that the v1 and v2 application text shown randomly.
 - Getting Ingress Host IP and Port is varies depend on cluster environment, more info https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports
 
 ### Cleanup  
