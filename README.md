@@ -1,4 +1,4 @@
-# istio-demo
+# Istio Demo
 Simple demo App for Istio -Leading Service Mesh
 
 ### Prerequisite 
