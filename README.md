@@ -27,9 +27,8 @@ istioctl analyze
 4.2 Access App v1 or v2 in round-robin manner outside k8s cluster via Istio Ingress Gateway
 
 - export INGRESS_HOST=$(kubectl get po -l istio=ingressgateway -n istio-system -o jsonpath='{.items[0].status.hostIP}')  
-  export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')  
-  curl -s "http://$INGRESS_HOST:$INGRESS_PORT/"   
-
+- export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')  
+- curl -s "http://$INGRESS_HOST:$INGRESS_PORT/"   
 - Calling the curl multiple times, user should noticed that the v1 and v2 application text shown randomly.
 - Getting Ingress Host IP and Port is varies depend on cluster environment, more info https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports
 
