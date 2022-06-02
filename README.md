@@ -15,7 +15,7 @@ kubectl apply -f demo-gateway.yaml
 ### Step 3: verifying Istio gateway is configured
 istioctl analyze
 
-### Step 4: Validating the load balancing is working for this demo
+### Step 4: Validating 
 
 4.1 Access App v1 or v2 in round-robin manner within k8s cluster via Kubernetes service
 - export SVC_CLUSTER_IP=$(kubectl get svc demo-nginx-svc -o jsonpath='{.spec.clusterIP}')  
