@@ -52,6 +52,30 @@ spec:
         subset: v2
      ....
 ```
+### Route 90% of traffic to V2 app, and 10% to V1 app
+```
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: demo-nginx-vs
+spec:
+    .....   
+     route:
+    - destination:
+        host: demo-nginx-svc
+        port:
+          number: 9080
+        subset: v1
+      weight: 10
+    - destination:
+        host: demo-nginx-svc
+        port:
+          number: 9080
+        subset: v2
+      weight: 90
+     ....
+```
+
 ## Cleanup  
 kubectl delete -f demo-gateway.yaml  
 kubectl delete -f demo-deployment.yaml   
