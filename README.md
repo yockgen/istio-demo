@@ -18,9 +18,9 @@ istioctl analyze
 ### Step 4: Validating the load balancing is working for this demo
 
 4.1 Access App v1 or v2 in round-robin manner within k8s cluster via Kubernetes service
-- kubectl get svc | grep demo-nginx-svc
-- curl -s "http://{{cluster ip address}}:9080" 
-  - e.g. curl -s "http://10.233.46.10:9080"  
+- export SVC_CLUSTER_IP=$(kubectl get svc demo-nginx-svc -o jsonpath='{.spec.clusterIP}')  
+- export SVC_CLUSTER_PORT=$(kubectl get svc demo-nginx-svc -o jsonpath='{.spec.ports[?(@.name=="http")].port}')  
+- curl -s "http://$SVC_CLUSTER_IP:$SVC_CLUSTER_PORT" 
 - Calling the curl multiple times, user should noticed that the v1 and v2 application text shown randomly.
 
 
