@@ -1,5 +1,5 @@
 # Istio Demo
-Simple demo App for Istio -Leading Service Mesh
+Simple demo App for Istio - leading service mesh for K8s, the demo consist of two nginx application (called as v1 and v2, to simulate different version of N application), use Istio features to control routing of external traffic to v1 or v2 application (load balancing, only to specific service, traffic shifting etc). 
 
 ### Prerequisite 
 In order to run the demo, user should have already: 
@@ -32,6 +32,26 @@ istioctl analyze
 - Calling the curl multiple times, user should noticed that the v1 and v2 application text shown randomly.
 - Getting Ingress Host IP and Port is varies depend on cluster environment, more info https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports
 
-### Cleanup  
+## To play with Istio features
+- Modifying VirtualService in demo-gateway.yaml 
+- kubectl apply -f demo-gateway.yaml 
+- curl -s "http://$INGRESS_HOST:$INGRESS_PORT/", via k8s clusterIP IP and port will not see the effects.   
+
+### Route only to V2 app
+```
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: demo-nginx-vs
+spec:
+    .....   
+    - destination:
+        host: demo-nginx-svc
+        port:
+          number: 9080
+        subset: v2
+     ....
+```
+## Cleanup  
 kubectl delete -f demo-gateway.yaml  
 kubectl delete -f demo-deployment.yaml   
