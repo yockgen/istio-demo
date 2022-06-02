@@ -35,7 +35,8 @@ istioctl analyze
 ## To play with Istio features
 - Modifying VirtualService in demo-gateway.yaml 
 - kubectl apply -f demo-gateway.yaml 
-- curl -s "http://$INGRESS_HOST:$INGRESS_PORT/", via k8s clusterIP IP and port will not see the effects.   
+- curl -s "http://$INGRESS_HOST:$INGRESS_PORT/"
+   - Through k8s clusterIP IP and port will not see the effects.   
 
 ### Route only to V2 app
 ```
