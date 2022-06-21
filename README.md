@@ -10,7 +10,7 @@ In order to run the demo, user should have already:
 kubectl apply -f demo-deployment.yaml
 
 ### Step 2: Deploy Istio Gateway and VirtualServices 
-kubectl apply -f demo-destination-rule.yaml
+kubectl apply -f demo-destination-rule.yaml   
 kubectl apply -f demo-gateway.yaml
 
 ### Step 3: verifying Istio gateway is configured
