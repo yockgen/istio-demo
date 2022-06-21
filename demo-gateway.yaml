@@ -31,3 +31,11 @@ spec:
         host: demo-nginx-svc
         port:
           number: 9080
+        subset: v1
+      weight: 20
+    - destination:
+        host: demo-nginx-svc
+        port:
+          number: 9080
+        subset: v2
+      weight: 80
